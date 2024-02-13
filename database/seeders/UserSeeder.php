@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'messages.create,viewAny']);
+        Permission::create(['name' => 'messages.store,viewAny']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
-        $role1->givePermissionTo('messages.create,viewAny');
+        $role1->givePermissionTo('messages.store,viewAny');
 
         $role3 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
