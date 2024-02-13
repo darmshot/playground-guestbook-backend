@@ -10,6 +10,8 @@
 ## Application
 https://guestbook-frontend.indigital-dev.com
 
+Frontend repo: https://github.com/darmshot/playground-guestbook-frontend
+
 ## Задача
 
 Реализовать api c авторизацией
