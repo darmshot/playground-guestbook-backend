@@ -6,20 +6,24 @@ use App\Events\MessageAnswered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateAnswerMessageRequest;
 use App\Models\Message;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AnswerMessageController extends Controller
 {
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnswerMessageRequest $request, string $id): \Illuminate\Http\Response
+    public function update(UpdateAnswerMessageRequest $request, string $id): JsonResource
     {
         $this->authorize(request()->route()->getName());
 
-        $messageId = Message::query()->where('id', $id)->update($request->validated());
+        Message::query()->where('id', $id)->update($request->validated());
 
-        MessageAnswered::dispatch(Message::query()->find($messageId));
+        /** @var Message $message */
+        $message = Message::query()->findOrFail($id);
 
-        return response()->noContent();
+        broadcast(new MessageAnswered($message))->toOthers();
+
+        return JsonResource::make($message);
     }
 }
