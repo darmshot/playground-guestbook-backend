@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 
-
 /**
  * @property int $id
  * @property Date $payment_date
@@ -22,7 +21,6 @@ use Illuminate\Support\Facades\Date;
  * @property string $ref_id
  * @property Date $created_at
  * @property Date $updated_at
- *
  * @property PaymentOrder $paymentOrder
  */
 class Payment extends Model
@@ -33,7 +31,7 @@ class Payment extends Model
     protected $casts = [
         'status' => PaymentStatus::class,
         'amount' => 'decimal:2',
-        'payment_date' => 'date'
+        'payment_date' => 'date',
     ];
 
     /*-------------------------------------------------
@@ -42,11 +40,11 @@ class Payment extends Model
      */
     public function paymentOrder(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-       return $this->hasOne(PaymentOrder::class,'payment_id');
+        return $this->hasOne(PaymentOrder::class, 'payment_id');
     }
 
     public function loan(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Loan::class,'loan_id');
+        return $this->belongsTo(Loan::class, 'loan_id');
     }
 }

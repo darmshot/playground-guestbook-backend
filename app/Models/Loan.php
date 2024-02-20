@@ -18,9 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $amount_to_pay
  * @property string $created_at
  * @property string $updated_at
- *
  * @property float $remains
- *
  * @property Payment[] $payments
  */
 class Loan extends Model

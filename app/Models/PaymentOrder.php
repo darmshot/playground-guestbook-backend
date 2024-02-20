@@ -23,6 +23,6 @@ class PaymentOrder extends Model
 
     protected $casts = [
         'state' => PaymentOrderState::class,
-        'amount' => 'decimal:2'
+        'amount' => 'decimal:2',
     ];
 }

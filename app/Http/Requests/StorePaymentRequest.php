@@ -28,14 +28,14 @@ class StorePaymentRequest extends FormRequest
             'lastname' => 'string|min:2|max:64',
             'payment_date' => 'date',
             'amount' => 'decimal:2|required|min:0.01|max:100000',
-            'description' => ['string','min:10','max:255',new DescriptionHasLoan],
-            'ref_id' => 'uuid|max:36|unique:App\Models\Payment,ref_id'
+            'description' => ['string', 'min:10', 'max:255', new DescriptionHasLoan],
+            'ref_id' => 'uuid|max:36|unique:App\Models\Payment,ref_id',
         ];
     }
 
     public function payload(): PaymentForm
     {
-        $data = (object)$this->validated();
+        $data = (object) $this->validated();
 
         return new PaymentForm(
             firstname: $data->firstname,

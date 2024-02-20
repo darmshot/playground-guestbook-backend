@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained('customers');
-            $table->string('reference',10);
-            $table->enum('state',['ACTIVE','PAID']);
+            $table->string('reference', 10);
+            $table->enum('state', ['ACTIVE', 'PAID']);
             $table->unsignedDecimal('amount_issued');
             $table->unsignedDecimal('amount_to_pay');
             $table->timestamps();

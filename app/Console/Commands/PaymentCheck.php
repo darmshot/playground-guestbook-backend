@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Contracts\PaymentContract;
-use App\Data\Payment\PaymentRowCSV;
-use App\Data\Payment\PayPayload;
 use App\Rules\DescriptionHasLoan;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Isolatable;
@@ -34,8 +32,8 @@ class PaymentCheck extends Command implements Isolatable
     /**
      * Execute the console command.
      */
-
     protected int $errorCount = 0;
+
     private bool $firstFail = false;
 
     public function __construct(protected PaymentContract $payment)
@@ -45,17 +43,17 @@ class PaymentCheck extends Command implements Isolatable
 
     public function handle(): int
     {
-        if (!Storage::disk('public')->exists($this->option('file'))) {
+        if (! Storage::disk('public')->exists($this->option('file'))) {
             $this->error('File is not found.');
+
             return 3;
         }
 
         $this->firstFail = $this->hasOption('first-fail');
 
-
         $exitCode = $this->check();
 
-       return $exitCode;
+        return $exitCode;
     }
 
     /**
@@ -72,15 +70,15 @@ class PaymentCheck extends Command implements Isolatable
 
         $handle = Storage::disk('public')->readStream($this->option('file'));
         $row = 1;
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ',')) !== false) {
 
             if ($row === 1) {
                 $row++;
+
                 continue;
             }
 
             $associateData = $this->associateData($data);
-
 
             if ($this->errorCount > 100) {
                 $this->error('Too much errors.');
@@ -109,7 +107,6 @@ class PaymentCheck extends Command implements Isolatable
         return $code;
     }
 
-
     protected function associateData(array $data): array
     {
         return [
@@ -122,7 +119,6 @@ class PaymentCheck extends Command implements Isolatable
             'payment_reference' => $data[6],
         ];
     }
-
 
     protected function validate(array $associateData, $row, &$code = 0): void
     {
@@ -147,7 +143,7 @@ class PaymentCheck extends Command implements Isolatable
         foreach ($validate->errors()->getMessages() as $field => $errors) {
             $this->errorCount++;
             $code = 3;
-            $this->error("Row: $row, $field: " . implode("|", $errors));
+            $this->error("Row: $row, $field: ".implode('|', $errors));
         }
     }
 }

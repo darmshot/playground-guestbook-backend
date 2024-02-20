@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 class Storage
 {
     protected array $store = [];
-
 
     public function get(string $key, \Closure $call, int $ttl)
     {
@@ -16,26 +16,23 @@ class Storage
 
         return $this->store[$key] ??= [
             'ttl' => $time + $ttl,
-            'data' => $call()
+            'data' => $call(),
         ];
     }
 }
-
 
 function callWithCache(string $path, string $method, array $body, int $ttl): void
 {
 
     $store = new Storage();
 
-
-    $store->get("$path.$method." . md5(json_encode($body)), function () {
+    $store->get("$path.$method.".md5(json_encode($body)), function () {
         // some query
     }, $ttl);
 
 }
 
 callWithCache('https://youtube.com', 'Post', body, 300);
-
 
 $observable = new Observable();
 
@@ -50,4 +47,3 @@ $unsubscribe2 = $observable->subscribe(function () {
 $observable->notify();
 
 $unsubscribe1();
-

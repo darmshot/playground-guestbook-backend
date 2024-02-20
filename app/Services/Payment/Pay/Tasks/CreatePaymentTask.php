@@ -1,20 +1,18 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Services\Payment\Pay\Tasks;
 
 use App\Data\Payment\PayPayload;
 use App\Enums\Payment\LoanState;
 use App\Enums\Payment\PaymentStatus;
-use App\Models\Loan;
 use App\Models\Payment;
 use App\Services\Payment\Exceptions\CreatePaymentException;
 use App\Services\Payment\Interfaces\PayTask;
 
 class CreatePaymentTask implements PayTask
 {
-
     /**
      * @throws CreatePaymentException
      */
@@ -23,7 +21,6 @@ class CreatePaymentTask implements PayTask
         if (empty($payload->loan)) {
             throw CreatePaymentException::loanNotDefine();
         }
-
 
         $payment = new Payment();
         $payment->payment_date = $payload->payment_date;
@@ -46,7 +43,6 @@ class CreatePaymentTask implements PayTask
         } else {
             $payment->status = PaymentStatus::ASSIGNED;
         }
-
 
         $payload->loan->payments()->save($payment);
         $payload->loan->refresh();

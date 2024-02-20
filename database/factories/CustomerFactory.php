@@ -19,9 +19,9 @@ class CustomerFactory extends Factory
         return [
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
-            'ssn' => fake()->numberBetween(100_000_000,999_999_999),
+            'ssn' => fake()->numberBetween(100_000_000, 999_999_999),
             'email' => fake()->email(),
-            'phone' => fake()->phoneNumber()
+            'phone' => fake()->phoneNumber(),
         ];
     }
 }

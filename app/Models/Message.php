@@ -12,11 +12,11 @@ class Message extends Model
     protected $fillable = [
         'user_id',
         'text',
-        'answer'
+        'answer',
     ];
 
     protected $casts = [
-        'user_id' => 'int'
+        'user_id' => 'int',
     ];
 
     protected $perPage = 6;
@@ -28,6 +28,6 @@ class Message extends Model
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
