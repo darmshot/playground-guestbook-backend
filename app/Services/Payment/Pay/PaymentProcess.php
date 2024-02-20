@@ -9,6 +9,7 @@ use App\Services\Payment\Pay\Tasks\CloseLoanTask;
 use App\Services\Payment\Pay\Tasks\CreatePaymentOrderTask;
 use App\Services\Payment\Pay\Tasks\CreatePaymentTask;
 use App\Services\Payment\Pay\Tasks\LoadLoanTask;
+use App\Services\Payment\Pay\Tasks\NotificationTask;
 use Illuminate\Support\Facades\Pipeline;
 
 class PaymentProcess
