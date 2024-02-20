@@ -29,4 +29,6 @@ Route::group([
 
 Route::get('/messages', [\App\Http\Controllers\Api\MessageController::class, 'index'])->name('messages.index');
 
+Route::post('/payments', [\App\Http\Controllers\Api\PaymentController::class, 'store'])->name('payments.store');
+
 
