@@ -31,11 +31,11 @@ class PaymentReport extends Command
         $payments = Payment::query()
             ->with(['loan'])
             ->whereDate('payment_date', $this->option('date'))
-            ->get()->map(fn(Payment $item) => [
+            ->get()->map(fn (Payment $item) => [
                 'loan' => $item->loan?->reference,
-                'amount_to_pay' =>$item->loan?->amount_to_pay,
+                'amount_to_pay' => $item->loan?->amount_to_pay,
                 'payer' => "$item->payer_name $item->payer_surname",
-                ...array_intersect_key($item->toArray(),array_flip(['payment_date','amount','status','description'])),
+                ...array_intersect_key($item->toArray(), array_flip(['payment_date', 'amount', 'status', 'description'])),
             ])->toArray();
 
         $this->table([
@@ -45,7 +45,7 @@ class PaymentReport extends Command
             'payment_date' => 'Payment date',
             'amount' => 'Amount',
             'status' => 'Status',
-            'description' => 'Description'
+            'description' => 'Description',
         ], $payments);
     }
 }

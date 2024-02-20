@@ -10,5 +10,4 @@ class Customer extends Model
 {
     use HasFactory;
     use HasUuids;
-
 }

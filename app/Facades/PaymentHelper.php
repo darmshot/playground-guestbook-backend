@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string|null loanReferenceExtractor(string $text)
- *
  */
 class PaymentHelper extends Facade
 {

@@ -22,7 +22,7 @@ class UpdateAnswerMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'answer' => 'min:1|max:225|string|required'
+            'answer' => 'min:1|max:225|string|required',
         ];
     }
 }

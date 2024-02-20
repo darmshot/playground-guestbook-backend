@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
         $role3 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
-
         $user = \App\Models\User::factory()->create([
             'name' => 'Writer User',
             'email' => 'writer@example.com',

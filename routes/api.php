@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::group([
-    'middleware' => ['auth:sanctum']
+    'middleware' => ['auth:sanctum'],
 ], function () {
 
     Route::get('/user', function (Request $request) {
@@ -30,5 +29,3 @@ Route::group([
 Route::get('/messages', [\App\Http\Controllers\Api\MessageController::class, 'index'])->name('messages.index');
 
 Route::post('/payments', [\App\Http\Controllers\Api\PaymentController::class, 'store'])->name('payments.store');
-
-

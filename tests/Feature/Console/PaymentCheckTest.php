@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Tests\Feature\Console;
 
@@ -25,9 +25,9 @@ class PaymentCheckTest extends TestCase
             'LN66032063',
             'LN76973642',
         ];
-        Loan::factory()->createMany(array_map(fn($item) => [
+        Loan::factory()->createMany(array_map(fn ($item) => [
             'reference' => $item,
-            'customer_id' => $customer
+            'customer_id' => $customer,
         ], $reference));
 
         $this->artisan('payment:check --file=/payments_valid_test.csv')->assertExitCode(0);
@@ -45,15 +45,14 @@ class PaymentCheckTest extends TestCase
             'LN66032063',
             'LN76973642',
         ];
-        Loan::factory()->createMany(array_map(fn($item) => [
+        Loan::factory()->createMany(array_map(fn ($item) => [
             'reference' => $item,
-            'customer_id' => $customer
+            'customer_id' => $customer,
         ], $reference));
 
         $this->artisan('payment:check --file=/payments_valid_test.csv')->assertExitCode(3);
 
     }
-
 
     public function test_duplicate_entity_code()
     {
@@ -67,9 +66,9 @@ class PaymentCheckTest extends TestCase
             'LN66032063',
             'LN76973642',
         ];
-        Loan::factory()->createMany(array_map(fn($item) => [
+        Loan::factory()->createMany(array_map(fn ($item) => [
             'reference' => $item,
-            'customer_id' => $customer
+            'customer_id' => $customer,
         ], $reference));
 
         $this->artisan('payment:check --file=/payments_not_valid_duplicate_entity_test.csv --first-fail')->assertExitCode(1);

@@ -29,8 +29,6 @@ class PaymentImport extends Command implements Isolatable
     /**
      * Execute the console command.
      */
-
-
     public function __construct(protected PaymentContract $payment)
     {
         parent::__construct();
@@ -38,15 +36,16 @@ class PaymentImport extends Command implements Isolatable
 
     public function handle(): int
     {
-        $path  = $this->option('file');
+        $path = $this->option('file');
 
-        if (!Storage::disk('public')->exists($path)) {
+        if (! Storage::disk('public')->exists($path)) {
             $this->error('File is not found.');
+
             return 3;
         }
 
         $code = $this->call('payment:check', [
-            '--file' => $path
+            '--file' => $path,
         ]);
 
         if ($code) {
@@ -58,17 +57,16 @@ class PaymentImport extends Command implements Isolatable
         return 0;
     }
 
-
     protected function import(): void
     {
         $handle = Storage::disk('public')->readStream($this->option('file'));
 
-
         $row = 1;
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ',')) !== false) {
 
             if ($row === 1) {
                 $row++;
+
                 continue;
             }
 
@@ -76,7 +74,7 @@ class PaymentImport extends Command implements Isolatable
                 payment_date: $data[0],
                 payer_name: $data[1],
                 payer_surname: $data[2],
-                amount: (float)$data[3],
+                amount: (float) $data[3],
                 description: $data[5],
                 national_security_number: $data[4],
                 payment_reference: $data[6],

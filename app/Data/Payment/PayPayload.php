@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Data\Payment;
 
@@ -12,28 +12,29 @@ use Illuminate\Support\Carbon;
 class PayPayload
 {
     public function __construct(
-        public string   $firstname,
-        public string   $lastname,
+        public string $firstname,
+        public string $lastname,
         /**
          * Example: LN22345678
+         *
          * @var string
          */
-        public string   $reference,
-        public float    $amount,
-        public Carbon   $payment_date,
-        public ?string  $ref_id = null,
-        public ?string  $payment_reference = null,
+        public string $reference,
+        public float $amount,
+        public Carbon $payment_date,
+        public ?string $ref_id = null,
+        public ?string $payment_reference = null,
         /**
          * Example: 1234567890
+         *
          * @var string|null
          */
-        public ?string  $national_security_number = null,
+        public ?string $national_security_number = null,
         public ?Payment $payment = null,
-        public ?Loan    $loan = null,
-        public ?string  $description = null,
-        public float    $overage = 0
-    )
-    {
+        public ?Loan $loan = null,
+        public ?string $description = null,
+        public float $overage = 0
+    ) {
     }
 
     public static function fromPaymentForm(PaymentForm $paymentForm): static
@@ -53,12 +54,11 @@ class PayPayload
         );
     }
 
-
     public static function fromPaymentRowCSV(PaymentRowCSV $paymentRowCSV): static
     {
         $reference = ReferenceExtractor::make()->from($paymentRowCSV->description)->get();
 
-        $paymentDate = Carbon::createFromFormat('YdmHis',$paymentRowCSV->payment_date);
+        $paymentDate = Carbon::createFromFormat('YdmHis', $paymentRowCSV->payment_date);
 
         return new self(
             firstname: $paymentRowCSV->payer_name,

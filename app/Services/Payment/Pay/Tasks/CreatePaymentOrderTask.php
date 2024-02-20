@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Services\Payment\Pay\Tasks;
 
@@ -12,7 +12,6 @@ use App\Services\Payment\Interfaces\PayTask;
 
 class CreatePaymentOrderTask implements PayTask
 {
-
     /**
      * @throws CreatePaymentOrderException
      */
@@ -22,7 +21,7 @@ class CreatePaymentOrderTask implements PayTask
             return $next($payload);
         }
 
-        if (empty($payload->payment)){
+        if (empty($payload->payment)) {
             throw CreatePaymentOrderException::paymentNotDefine();
         }
 

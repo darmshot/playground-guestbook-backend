@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Tests\Unit\Services\Payment\Helpers;
 
@@ -21,14 +21,13 @@ class ReferenceExtractorTest extends TestCase
 
         .";
 
-
         $this->assertEquals($reference, ReferenceExtractor::make()
             ->from($description)->get());
 
-        $description = "Some desc with
+        $description = 'Some desc with
 
 
-        .";
+        .';
 
         $this->assertNull(ReferenceExtractor::make()
             ->from($description)->get());

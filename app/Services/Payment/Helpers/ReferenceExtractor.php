@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Services\Payment\Helpers;
 
@@ -16,6 +16,7 @@ class ReferenceExtractor
     public function from(string $text): static
     {
         $this->text = $text;
+
         return $this;
     }
 
